@@ -1,0 +1,9 @@
+{
+    "serverRestBaseUrl": "http://localhost:8081/rest/",
+    
+    "headerClassName": "main-header",
+    "mainClassName": "main-main",
+    "footerClassName": "main-footer"
+    
+    
+}
