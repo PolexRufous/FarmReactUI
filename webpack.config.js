@@ -32,6 +32,18 @@ module.exports = [{
             {
                 test: /\.json$/,
                 loader: 'json-loader'
+            },
+            {
+                test: /\.less$/,
+                use: [ 'style-loader', 'css-loader', 'less-loader' ]
+            },
+            {
+                test: /(\.jpeg$|\.png$|\.gif$|\.svg$)/,
+                use: [ 'url-loader?limit=10000', 'img-loader' ]
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf)$/,
+                use: [ 'url-loader?limit=10000' ]
             }
         ]
     },
