@@ -1,5 +1,5 @@
 {
-    "serverRestBaseUrl": "http://localhost:8081/rest/",
+    "serverRestBaseUrl": "http://localhost:8090/rest/",
     
     "headerClassName": "main-header",
     "mainClassName": "main-main",
