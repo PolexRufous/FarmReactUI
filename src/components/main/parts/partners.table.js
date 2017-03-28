@@ -1,10 +1,42 @@
 import React from 'react';
-import PartnerRow from "./partner.row"
+import PartnerRow from "./partner.row";
 import { FormattedMessage } from 'react-intl';
+import * as PartnersEvents from '../events/partners.events';
 
 export default class PartnersTable extends React.Component {
+    constructor(properties) {
+        super(properties);
+        this.state = {
+            newPartner: {
+                isEditable: true,
+                name: '',
+                description: ''
+            },
+            isNewPartnerPresent: false
+        }
+    }
+
+    refreshPartners(){
+        PartnersEvents.refreshPartners();
+    }
+
+    createNewPartner(){
+        PartnersEvents.createPartner(this.state.newPartner);
+        this.setState({
+            newPartner: {isEditable: true},
+            isNewPartnerPresent: false
+        });
+    }
+
+    createPartnerNewRow(){
+        this.setState({
+            isNewPartnerPresent: true
+        });
+    }
+
     render() {
         let partners = this.getPartners();
+        let newPartnerRow = this.getNewPartnerRow();
 
         return (
                 <table id="partners-table"  className="table">
@@ -16,17 +48,22 @@ export default class PartnersTable extends React.Component {
                         </tr>
                         <tr>
                             <td colSpan="4">
-                                <button className="refresh-button"><FormattedMessage id="REFRESH" /></button>
+                                <button className="refresh-button"
+                                        onClick={this.refreshPartners.bind(this)}>
+                                    <FormattedMessage id="REFRESH" /></button>
                             </td>
                         </tr>
                         <tr>
                             <td colSpan="4">
-                                <button className="add-partner-button"><FormattedMessage id="ADD" /></button>
+                                <button className="add-partner-button"
+                                        onClick={this.createPartnerNewRow.bind(this)}>
+                                    <FormattedMessage id="ADD" /></button>
                             </td>
                         </tr>
                     </thead>
                     <tbody>
-                        {partners}
+                    {newPartnerRow}
+                    {partners}
                     </tbody>
                 </table>
         );
@@ -41,5 +78,13 @@ export default class PartnersTable extends React.Component {
         return partners.map(function(curPartner, index){
             return <PartnerRow partner={curPartner} key={index} />
         });
+    }
+
+    getNewPartnerRow() {
+        let newPartnerRow = false;
+        if(this.state.isNewPartnerPresent){
+            newPartnerRow =  <PartnerRow partner={this.state.newPartner} />
+        }
+        return newPartnerRow;
     }
 }

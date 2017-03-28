@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import axios from '../default.axios';
+import partnersDispatcher from '../../dispatchers/partners.dispatcher';
 
 class PartnersStore extends EventEmitter{
     constructor(){
@@ -34,9 +35,46 @@ class PartnersStore extends EventEmitter{
                         console.error("Partners fetching error: ", error.message);
                     }
                     console.log(error.config);
+                });
+    }
+
+    createPartner(partner) {
+        axios.post('partner', partner)
+                .then(function (response) {
+                    if(response.status === 200) {
+                        self.partners.push(response.data);
+                        self.emit("change");
+                    } else {
+                        console.error('Unexpected response status');
+                    }
                 })
+                .catch(function (error) {
+                    if(error.response) {
+                        console.log(error.response);
+                    } else {
+                        console.error("Partners fetching error: ", error.message);
+                    }
+                    console.log(error.config);
+                });
+    }
+
+
+
+    handlePartnerEvent(partnerEvent){
+        switch (partnerEvent.type) {
+            case 'REFRESH_PARTNERS':
+                this.fetchAll();
+                break;
+            case 'CREATE_PARTNER':
+                this.createPartner(partnerEvent.partner);
+                break;
+            default:
+                console.error('Unexpected partners action type!');
+        }
+
     }
 }
 
 const partnersStore = new PartnersStore();
+partnersDispatcher.register(partnersStore.handlePartnerEvent.bind(partnersStore));
 export default partnersStore;
