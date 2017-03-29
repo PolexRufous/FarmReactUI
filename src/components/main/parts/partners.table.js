@@ -13,13 +13,10 @@ export default class PartnersTable extends React.Component {
         }
     }
     render() {
-        let { partners } = this.props;
-        if (!partners) {
-            partners = [];
-        }
+        let partners = this.getPartners();
 
         return (
-                <table id="partners-table">
+                <table id="partners-table"  className="table">
                     <thead>
                         <tr>
                             <th>
@@ -44,11 +41,20 @@ export default class PartnersTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                    {partners.map((curPartner, i) => {
-                        return <PartnerRow partner={curPartner} key={i}/>
-                    })}
+                        {partners}
                     </tbody>
                 </table>
         );
+    }
+
+    getPartners() {
+        let {partners} = this.props;
+        if (!partners) {
+            partners = [];
+        }
+
+        return partners.map(function(curPartner, index){
+            return <PartnerRow partner={curPartner} key={index} />
+        });
     }
 }

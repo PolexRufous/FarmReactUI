@@ -1,14 +1,11 @@
 import { EventEmitter } from 'events';
-import partnersAxios from './pertners.axios';
+import axios from '../default.axios';
 
 class PartnersStore extends EventEmitter{
     constructor(){
         super();
         this.isNew = true;
-        this.partners = [{
-            name: "No partners",
-            description: "Yet no partners here"
-        }];
+        this.partners = [];
     }
 
     getAll(){
@@ -20,7 +17,7 @@ class PartnersStore extends EventEmitter{
 
     fetchAll(){
         const self = this;
-        partnersAxios.get('partner')
+        axios.get('partner')
                 .then(function (response) {
                     if(response.status === 200) {
                         self.partners = response.data;
@@ -29,7 +26,6 @@ class PartnersStore extends EventEmitter{
                     } else if (response.status === 204) {
                         self.partners = {};
                     }
-                    console.log(response);
                 })
                 .catch(function (error) {
                     if(error.response) {
