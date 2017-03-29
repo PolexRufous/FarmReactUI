@@ -39,6 +39,7 @@ class PartnersStore extends EventEmitter{
     }
 
     createPartner(partner) {
+        const self = this;
         axios.post('partner', partner)
                 .then(function (response) {
                     if(response.status === 200) {
@@ -52,7 +53,7 @@ class PartnersStore extends EventEmitter{
                     if(error.response) {
                         console.log(error.response);
                     } else {
-                        console.error("Partners fetching error: ", error.message);
+                        console.error("Partners saving error: ", error.message);
                     }
                     console.log(error.config);
                 });

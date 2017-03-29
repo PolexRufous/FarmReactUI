@@ -13,17 +13,17 @@ export default class PartnersTable extends React.Component {
                 description: ''
             },
             isNewPartnerPresent: false
-        }
+        };
+        this.createNewPartner = this.createNewPartner.bind(this);
     }
 
     refreshPartners(){
         PartnersEvents.refreshPartners();
     }
 
-    createNewPartner(){
-        PartnersEvents.createPartner(this.state.newPartner);
+    createNewPartner(partner){
+        PartnersEvents.createPartner(partner);
         this.setState({
-            newPartner: {isEditable: true},
             isNewPartnerPresent: false
         });
     }
