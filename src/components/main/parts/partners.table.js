@@ -1,17 +1,8 @@
 import React from 'react';
 import PartnerRow from "./partner.row"
+import { FormattedMessage } from 'react-intl';
 
 export default class PartnersTable extends React.Component {
-    constructor(properties){
-        super(properties);
-        this.state = {
-            tableHeaderName: "Имя",
-            tableHeaderDescription: "Описаине",
-            tableHeaderActions: "Действия",
-            buttonRefreshName: "Обновить",
-            buttonAddName: "Добавить"
-        }
-    }
     render() {
         let partners = this.getPartners();
 
@@ -19,24 +10,18 @@ export default class PartnersTable extends React.Component {
                 <table id="partners-table"  className="table">
                     <thead>
                         <tr>
-                            <th>
-                                {this.state.tableHeaderName}
-                            </th>
-                            <th>
-                                {this.state.tableHeaderDescription}
-                            </th>
-                            <th colSpan="2">
-                                {this.state.tableHeaderActions}
-                            </th>
+                            <th><FormattedMessage id="NAME" /></th>
+                            <th><FormattedMessage id="DESCRIPTION" /></th>
+                            <th colSpan="2"><FormattedMessage id="ACTIONS" /></th>
                         </tr>
                         <tr>
                             <td colSpan="4">
-                                <button className="refresh-button">{this.state.buttonRefreshName}</button>
+                                <button className="refresh-button"><FormattedMessage id="REFRESH" /></button>
                             </td>
                         </tr>
                         <tr>
                             <td colSpan="4">
-                                <button className="add-partner-button">{this.state.buttonAddName}</button>
+                                <button className="add-partner-button"><FormattedMessage id="ADD" /></button>
                             </td>
                         </tr>
                     </thead>

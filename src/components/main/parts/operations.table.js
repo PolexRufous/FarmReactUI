@@ -1,16 +1,8 @@
 import React from 'react';
 import OperationRow from "./operation.row"
+import { FormattedMessage } from 'react-intl';
 
 export default class OperationsTable extends React.Component {
-    constructor(properties){
-        super(properties);
-        this.state = {
-            tableHeaderDate: "Дата",
-            tableHeaderPartner: "Партнер",
-            tableHeaderOperationType: "Операция",
-            tableHeaderAmount: "Сумма",
-        }
-    }
     render() {
         let operations = this.getOperations();
 
@@ -18,18 +10,10 @@ export default class OperationsTable extends React.Component {
             <table id="partners-table" className="table">
                 <thead>
                 <tr>
-                    <th>
-                        {this.state.tableHeaderDate}
-                    </th>
-                    <th>
-                        {this.state.tableHeaderPartner}
-                    </th>
-                    <th>
-                        {this.state.tableHeaderOperationType}
-                    </th>
-                    <th>
-                        {this.state.tableHeaderAmount}
-                    </th>
+                    <th><FormattedMessage id="DATE" /></th>
+                    <th><FormattedMessage id="PARTNER" /></th>
+                    <th><FormattedMessage id="OPERATION" /></th>
+                    <th><FormattedMessage id="AMOUNT" /></th>
                 </tr>
                 </thead>
                 <tbody>

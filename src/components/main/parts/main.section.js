@@ -1,12 +1,13 @@
 import React from 'react';
 import OperationsTable from './operations.table'
+import {FormattedMessage} from 'react-intl';
 
 export default class MainSection extends React.Component{
     render(){
         const { operations } = this.props;
         return(
                 <main id="main-section-main" className="col-md-6">
-                    <h4>Последние операции</h4>
+                    <h4><FormattedMessage id='LATEST_OPERATIONS'/></h4>
                     <OperationsTable operations={operations}/>
                 </main>
         );

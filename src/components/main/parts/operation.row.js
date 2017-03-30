@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 export default class OperationRow extends React.Component {
     render() {
@@ -7,7 +8,9 @@ export default class OperationRow extends React.Component {
             <tr>
                 <td>{operation.date}</td>
                 <td>{operation.partner.name}</td>
-                <td>{operation.operationType}</td>
+                <td>
+                    <FormattedMessage id={operation.operationType} />
+                </td>
                 <td>{operation.amount}</td>
             </tr>
         );

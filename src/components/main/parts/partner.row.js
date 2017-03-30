@@ -1,4 +1,6 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
+
 
 export default class PartnerRow extends React.Component {
     render() {
@@ -7,8 +9,8 @@ export default class PartnerRow extends React.Component {
                 <tr>
                     <td>{partner.name}</td>
                     <td>{partner.description}</td>
-                    <td><button>Изменить</button></td>
-                    <td><button>Дополнительно</button></td>
+                    <td><button><FormattedMessage id="CHANGE" /></button></td>
+                    <td><button><FormattedMessage id="MORE" /></button></td>
                 </tr>
         );
     }
