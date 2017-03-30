@@ -83,7 +83,7 @@ export default class PartnersTable extends React.Component {
     getNewPartnerRow() {
         let newPartnerRow = false;
         if(this.state.isNewPartnerPresent){
-            newPartnerRow =  <PartnerRow partner={this.state.newPartner} />
+            newPartnerRow =  <PartnerRow partner={this.state.newPartner} createPartner={this.createNewPartner}/>
         }
         return newPartnerRow;
     }
