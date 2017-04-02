@@ -58,7 +58,7 @@ export default class PartnerRow extends React.Component {
                     <td>{name}</td>
                     <td>{description}</td>
                     <td>{firstButton}</td>
-                    <td><button>{additionalButton}</button></td>
+                    <td>{additionalButton}</td>
                 </tr>
         );
     }
