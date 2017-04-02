@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 
 
 export default class PartnerRow extends React.Component {
@@ -43,11 +44,11 @@ export default class PartnerRow extends React.Component {
         let name = partner.name;
         let description = partner.description;
         let saveButtonName = <FormattedMessage id="CHANGE" />;
-        let additionalButtonName = <FormattedMessage id="MORE" />;
+        let additionalButton = <Link to={`/partner/${partner.id}`}><button><FormattedMessage id="MORE" /></button></Link>;
         let firstButton = <button>{saveButtonName}</button>;
         if (this.state.isEditable) {
             saveButtonName = <FormattedMessage id="SAVE" />;
-            additionalButtonName = <FormattedMessage id="CANCEL" />;
+            additionalButton = <Link><button><FormattedMessage id="CANCEL" /></button></Link>;
             name = <input name="name" key="name" value={this.state.name} onChange={this.updateName}/>;
             description = <input name="description" value={this.state.description} key="description" onChange={this.updateDescription}/>;
             firstButton = <button onClick={this.savePartner}>{saveButtonName}</button>;
@@ -57,7 +58,7 @@ export default class PartnerRow extends React.Component {
                     <td>{name}</td>
                     <td>{description}</td>
                     <td>{firstButton}</td>
-                    <td><button>{additionalButtonName}</button></td>
+                    <td><button>{additionalButton}</button></td>
                 </tr>
         );
     }

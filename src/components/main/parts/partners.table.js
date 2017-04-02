@@ -1,5 +1,7 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import PartnerRow from "./partner.row";
+import PartnerEditPage from './partners.edit.page';
 import { FormattedMessage } from 'react-intl';
 import * as PartnersEvents from '../events/partners.events';
 
@@ -15,6 +17,7 @@ export default class PartnersTable extends React.Component {
             isNewPartnerPresent: false
         };
         this.createNewPartner = this.createNewPartner.bind(this);
+        this.editPartner = this.editPartner.bind(this);
     }
 
     refreshPartners(){
@@ -39,33 +42,43 @@ export default class PartnersTable extends React.Component {
         let newPartnerRow = this.getNewPartnerRow();
 
         return (
-                <table id="partners-table"  className="table">
-                    <thead>
-                        <tr>
-                            <th><FormattedMessage id="NAME" /></th>
-                            <th><FormattedMessage id="DESCRIPTION" /></th>
-                            <th colSpan="2"><FormattedMessage id="ACTIONS" /></th>
-                        </tr>
-                        <tr>
-                            <td colSpan="4">
-                                <button className="refresh-button"
-                                        onClick={this.refreshPartners.bind(this)}>
-                                    <FormattedMessage id="REFRESH" /></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colSpan="4">
-                                <button className="add-partner-button"
-                                        onClick={this.createPartnerNewRow.bind(this)}>
-                                    <FormattedMessage id="ADD" /></button>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {newPartnerRow}
-                    {partners}
-                    </tbody>
-                </table>
+                <Router>
+                    <div>
+                    <Route exact={true} path="/" render={() => (
+                        <table id="partners-table"  className="table">
+                            <thead>
+                                <tr>
+                                    <th><FormattedMessage id="NAME" /></th>
+                                    <th><FormattedMessage id="DESCRIPTION" /></th>
+                                    <th colSpan="2"><FormattedMessage id="ACTIONS" /></th>
+                                </tr>
+                                <tr>
+                                    <td colSpan="4">
+                                        <button className="refresh-button"
+                                                onClick={this.refreshPartners.bind(this)}>
+                                            <FormattedMessage id="REFRESH" /></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colSpan="4">
+                                        <button className="add-partner-button"
+                                                onClick={this.createPartnerNewRow.bind(this)}>
+                                            <FormattedMessage id="ADD" /></button>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {newPartnerRow}
+                            {partners}
+                            </tbody>
+                        </table>
+                    )}>
+                    </Route>
+                    <Route path="/partner/:partnerId" render={({match}) => (
+                            <PartnerEditPage partnerId={match}/>)}/>
+                    </div>
+                </Router>
+
         );
     }
 
@@ -76,8 +89,12 @@ export default class PartnersTable extends React.Component {
         }
 
         return partners.map(function(curPartner, index){
-            return <PartnerRow partner={curPartner} key={index} />
+            return <PartnerRow partner={curPartner} key={index} edit="this.editPartner" />
         });
+    }
+
+    editPartner(){
+
     }
 
     getNewPartnerRow() {
