@@ -42,23 +42,10 @@ export default class PartnerRow extends React.Component {
     render() {
         const { partner } = this.props;
         let name = partner.name;
-        let description = partner.description;
-        let saveButtonName = <FormattedMessage id="CHANGE" />;
-        let additionalButton = <Link to={`/partner/${partner.id}`}><button><FormattedMessage id="MORE" /></button></Link>;
-        let firstButton = <button>{saveButtonName}</button>;
-        if (this.state.isEditable) {
-            saveButtonName = <FormattedMessage id="SAVE" />;
-            additionalButton = <Link><button><FormattedMessage id="CANCEL" /></button></Link>;
-            name = <input name="name" key="name" value={this.state.name} onChange={this.updateName}/>;
-            description = <input name="description" value={this.state.description} key="description" onChange={this.updateDescription}/>;
-            firstButton = <button onClick={this.savePartner}>{saveButtonName}</button>;
-        }
+        let partnerLabel = <Link to={`/partner/${partner.id}`}>{name}</Link>;
         return (
                 <tr>
-                    <td>{name}</td>
-                    <td>{description}</td>
-                    <td>{firstButton}</td>
-                    <td>{additionalButton}</td>
+                    <td>{partnerLabel}</td>
                 </tr>
         );
     }
