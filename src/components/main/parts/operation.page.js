@@ -2,7 +2,7 @@ import React from 'react';
 import OperationsTable from './operations.table'
 import {FormattedMessage} from 'react-intl';
 
-export default class MainSection extends React.Component{
+export default class OperationsPage extends React.Component{
     render(){
         const { operations } = this.props;
         return(

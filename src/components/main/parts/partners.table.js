@@ -2,6 +2,9 @@ import React from 'react';
 import PartnerRow from "./partner.row";
 import {FormattedMessage} from 'react-intl';
 import * as PartnersEvents from '../events/partners.events';
+import PartnerEditPage from './partners.edit.page';
+import {HashRouter as Router, Route, Link} from 'react-router-dom';
+import * as GlobalConfig from '../../../global.config.json';
 
 export default class PartnersTable extends React.Component {
     constructor(properties) {
@@ -36,38 +39,34 @@ export default class PartnersTable extends React.Component {
     }
 
     render() {
-        let partners = this.getPartners();
-        let newPartnerRow = this.getNewPartnerRow();
+        const partners = this.getPartners();
+        const { main } = GlobalConfig.routes;
+        const partnersList = partners.map((partner) =>
+            <li key={partner.id}>
+                <Link to={main.base + main.partners + "/id/" + partner.id} >
+                    {partner.name}
+                </Link>
+            </li>
+        );
 
         return (
-            <div>
-                <table id="partners-table" className="table">
-                    <thead>
-                    <tr>
-                        <th><FormattedMessage id="NAME"/></th>
-                    </tr>
-                    <tr>
-                        <td colSpan="4">
-                            <button className="refresh-button"
-                                    onClick={this.refreshPartners.bind(this)}>
-                                <FormattedMessage id="REFRESH"/></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="4">
-                            <button className="add-partner-button"
-                                    onClick={this.createPartnerNewRow.bind(this)}>
-                                <FormattedMessage id="ADD"/></button>
-                        </td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {newPartnerRow}
-                    {partners}
-                    </tbody>
-                </table>
+        <Router>
+            <div className="main-wrapper container row">
+                <button className="refresh-button"
+                        onClick={this.refreshPartners.bind(this)}>
+                    <FormattedMessage id="REFRESH"/></button>
+                <button className="add-partner-button"
+                        onClick={this.createPartnerNewRow.bind(this)}>
+                    <FormattedMessage id="ADD"/></button>
+                <hr/>
+                <ul id="partners-list" className="col-md-3">
+                    {partnersList}
+                </ul>
+                <Route path="/main/partners/id/:partnerId" component={Partner}/>
+                <Route path="/main/partners/new" render={() => (
+                        <PartnerEditPage />)}/>
             </div>
-
+        </Router>
         );
     }
 
@@ -76,10 +75,11 @@ export default class PartnersTable extends React.Component {
         if (!partners) {
             partners = [];
         }
+        return partners;
 
-        return partners.map(function (curPartner, index) {
+/*        return partners.map(function (curPartner, index) {
             return <PartnerRow partner={curPartner} key={index} edit="this.editPartner"/>
-        });
+        });*/
     }
 
     editPartner() {
@@ -94,3 +94,16 @@ export default class PartnersTable extends React.Component {
         return newPartnerRow;
     }
 }
+
+const Partner = ({ match }) => (
+        <div className="col-md-9">
+            <h3>Works!</h3>
+            <h3>This id: {match.params.partnerId} </h3>
+            <Link to="/" >
+                <button className="button"><FormattedMessage id="SAVE"/></button>
+            </Link>
+            <Link to="/" >
+                <button className="button"><FormattedMessage id="CANCEL"/></button>
+            </Link>
+        </div>
+);

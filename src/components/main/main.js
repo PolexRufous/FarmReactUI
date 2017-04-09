@@ -1,11 +1,11 @@
 import React from 'react';
-import LeftSide from "./parts/left.side";
-import MainSection from "./parts/main.section";
-import RightSide from "./parts/right.side";
+import OperationsPage from "./parts/operation.page";
+import PartnersPage from "./parts/partners.page";
 import PartnersStore from './stores/partners/partners.store';
 import OperationsStore from './stores/operations/operations.store'
 import {HashRouter as Router, Route, hashHistory} from 'react-router-dom';
-import PartnerEditPage from '../profile/components/partners.edit.page';
+import MainNavigation from './parts/main.navigation';
+import * as GlobalConfig from '../../global.config.json';
 
 export default class Main extends React.Component {
     constructor() {
@@ -43,18 +43,26 @@ export default class Main extends React.Component {
     render() {
         const {partners} = this.state;
         const {operations} = this.state;
+        const { main } = GlobalConfig.routes;
         return (
             <Router history={hashHistory}>
                 <div className="main-wrapper container row">
-                    <Route exact={true} path="/" render={({match}) => (
+                    <MainNavigation/>
+                    <Route exact={true} path={main.base} render={({match}) => (
+                            <div>
+                                <h2>Here will be some grouped information!</h2>
+                            </div>
+                    )}/>
+                    <Route exact={true} path={main.base + main.operations_cash} render={({match}) => (
                         <div>
-                            <LeftSide/>
-                            <MainSection operations={operations}/>
-                            <RightSide partners={partners}/>
+                            <OperationsPage operations={operations}/>
                         </div>
                         )} />
-                    <Route path="/partner/:partnerId" render={({match}) => (
-                        <PartnerEditPage partnerId={match}/>)}/>
+                    <Route path={main.base + main.partners} render={({match}) => (
+                            <div>
+                                <PartnersPage partners={partners}/>
+                            </div>
+                    )} />
                 </div>
             </Router>
         );

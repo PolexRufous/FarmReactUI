@@ -24,6 +24,12 @@ export default {
         "REFRESH": "Обновить",
         "ADD": "Добавить",
         "SAVE": "Сохранить",
-        "CANCEL": "Отмена"
+        "CANCEL": "Отмена",
+
+        "MAIN_NAV_BASE": "Сводная информация",
+        "MAIN_NAV_OPERATIONS_CASH": "Кассовые операции",
+        "MAIN_NAV_PARTNERS": "Партнеры",
+        "MAIN_NAV_SHIPS_EXPECTED": "Ожидаемые поставки",
+        "MAIN_NAV_SHIPS_LIABILITIES": "Запланированные отгрузки"
     }
 }

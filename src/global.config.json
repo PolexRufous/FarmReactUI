@@ -3,7 +3,13 @@
     
     "headerClassName": "main-header",
     "mainClassName": "main-main",
-    "footerClassName": "main-footer"
+    "footerClassName": "main-footer",
     
-    
+    "routes": {
+        "main": {
+            "base": "/main",
+            "operations_cash": "/operations_cash",
+            "partners": "/partners"
+        }
+    }
 }
