@@ -1,5 +1,5 @@
 import React from 'react';
-import PartnerRow from "./partner.row";
+import PartnerRow from './partner.row';
 import {FormattedMessage} from 'react-intl';
 import * as PartnersEvents from '../events/partners.events';
 import PartnerEditPage from './partners.edit.page';
@@ -44,7 +44,7 @@ export default class PartnersTable extends React.Component {
         const { main } = GlobalConfig.routes;
         const partnersList = partners.map((partner) =>
             <li key={partner.id}>
-                <Link to={main.base + main.partners + "/id/" + partner.id} >
+                <Link to={main.base + main.partners + '/id/' + partner.id} >
                     <span>{partner.name}</span>
                 </Link>
             </li>
@@ -52,19 +52,19 @@ export default class PartnersTable extends React.Component {
 
         return (
         <Router>
-            <div className="main-wrapper container row">
-                <button className="refresh-button"
+            <div className='main-wrapper container row'>
+                <button type='button' className='refresh-button btn btn-default'
                         onClick={this.refreshPartners.bind(this)}>
-                    <FormattedMessage id="REFRESH"/></button>
-                <button className="add-partner-button"
+                    <FormattedMessage id='REFRESH'/></button>
+                <button type='button' className='add-partner-button btn btn-default'
                         onClick={this.createPartnerNewRow.bind(this)}>
-                    <FormattedMessage id="ADD"/></button>
+                    <FormattedMessage id='ADD'/></button>
                 <hr/>
-                <ul id="partners-list" className="col-md-3">
+                <ul id='partners-list' className='col-md-3'>
                     {partnersList}
                 </ul>
-                <Route path="/main/partners/id/:partnerId" component={PartnerForRout}/>
-                <Route path="/main/partners/new" render={() => (
+                <Route path='/main/partners/id/:partnerId' component={PartnerForRout}/>
+                <Route path='/main/partners/new' render={() => (
                         <PartnerEditPage />)}/>
             </div>
         </Router>
@@ -79,7 +79,7 @@ export default class PartnersTable extends React.Component {
         return partners;
 
 /*        return partners.map(function (curPartner, index) {
-            return <PartnerRow partner={curPartner} key={index} edit="this.editPartner"/>
+            return <PartnerRow partner={curPartner} key={index} edit='this.editPartner'/>
         });*/
     }
 

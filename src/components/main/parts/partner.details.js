@@ -5,19 +5,24 @@ import * as GlobalConfig from "../../../global.config.json";
 import PartnersStore from "../stores/partners/partners.store";
 
 export default class PartnerDetails extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {partner: props.partner};
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event) {
+        //TODO: update partner
+    }
 
     render() {
         const {partner} = this.props;
-        console.log(partner);
         return (
             <div>
-                <table class="table">
+                <table className="table">
                     <tbody>
-                    <tr>
-                        <th scope="row"><FormattedMessage id="NAME"/></th>
-                        <td>{partner.name}</td>
-                    </tr>
-                    {listAdreesses(partner)}
+                    {listAddresses(partner, this)}
                     </tbody>
                 </table>
             </div>
@@ -25,12 +30,12 @@ export default class PartnerDetails extends React.Component {
     }
 }
 
-function listAdreesses(partner) {
+function listAddresses(partner, thisComponent) {
     return partner.addresses.map((address, index) => {
         return (
             <tr key={index}>
                 <th scope="row"><FormattedMessage id="ADDRESS"/> {index + 1}</th>
-                <td>{address.town}</td>
+                <td><input id={index} value={address.town} readOnly onChange={thisComponent.handleChange}  type="text"/></td>
             </tr>
         )
     })

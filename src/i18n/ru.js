@@ -26,6 +26,7 @@ export default {
         "ADD": "Добавить",
         "SAVE": "Сохранить",
         "CANCEL": "Отмена",
+        "EDIT": "Редактировать",
 
         "MAIN_NAV_BASE": "Сводная информация",
         "MAIN_NAV_OPERATIONS_CASH": "Кассовые операции",

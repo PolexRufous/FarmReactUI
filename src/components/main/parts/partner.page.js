@@ -1,9 +1,9 @@
-import React from "react";
-import {FormattedMessage} from "react-intl";
-import * as GlobalConfig from "../../../global.config.json";
-import PartnersStore from "../stores/partners/partners.store";
+import React from 'react';
+import {FormattedMessage} from 'react-intl';
+import * as GlobalConfig from '../../../global.config.json';
+import PartnersStore from '../stores/partners/partners.store';
 import {HashRouter as Router, Route, Link} from 'react-router-dom';
-import PartnerDetails from "./partner.details";
+import PartnerDetails from './partner.details';
 
 export default class Partner extends React.Component {
     constructor(properties) {
@@ -15,11 +15,11 @@ export default class Partner extends React.Component {
     }
 
     componentWillMount() {
-        PartnersStore.on("change", this.getPartners);
+        PartnersStore.on('change', this.getPartners);
     }
 
     componentWillUnmount() {
-        PartnersStore.removeListener("change", this.getPartners);
+        PartnersStore.removeListener('change', this.getPartners);
     }
 
     getPartners() {
@@ -31,9 +31,10 @@ export default class Partner extends React.Component {
     render() {
         const partner = this.getPartner(this.props.match.params.partnerId);
         return (
-            <div className="main-wrapper container row">
-                <div className="col-md-9">
+            <div className='main-wrapper container row'>
+                <div className='col-md-9' id='partner-info'>
                     {header(partner)}
+                    {editButton(this)}
                     {<PartnerDetails partner={partner}/>}
                     {saveCancelNav()}
                 </div>
@@ -56,7 +57,7 @@ function header(partner) {
             </h3>
         );
     }
-    return (<h3><FormattedMessage id="NO_USER_TO_SHOW"/></h3>)
+    return (<h3><FormattedMessage id='NO_USER_TO_SHOW'/></h3>)
 }
 
 function saveCancelNav() {
@@ -64,11 +65,26 @@ function saveCancelNav() {
     return (
         <div>
             <Link to={main.base + main.partners}>
-                <button className="button"><span><FormattedMessage id="SAVE"/></span></button>
+                <button type='button' className='btn btn-success'><span><FormattedMessage id='SAVE'/></span></button>
             </Link>
             <Link to={main.base + main.partners}>
-                <button className="button"><span><FormattedMessage id="CANCEL"/></span></button>
+                <button type='button' className='btn btn-default'><span><FormattedMessage id='CANCEL'/></span></button>
             </Link>
         </div>
     )
+}
+
+function editButton(element) {
+    return (
+        <span><button type='button' className='btn btn-warning' onClick={enableEdit.bind(element)}><FormattedMessage id='EDIT'/></button></span>
+    )
+}
+
+function enableEdit() {
+    let inputs = document.querySelectorAll('#partner-info input');
+    if (inputs) {
+        inputs.forEach((input) => {
+            input.removeAttribute('readOnly');
+        })
+    }
 }
