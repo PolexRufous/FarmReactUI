@@ -1,8 +1,6 @@
 import React from "react";
 import {FormattedMessage} from "react-intl";
-import {HashRouter as Router, Link, Route} from "react-router-dom";
-import * as GlobalConfig from "../../../global.config.json";
-import PartnersStore from "../stores/partners/partners.store";
+import {Link, Route} from "react-router-dom";
 
 export default class PartnerDetails extends React.Component {
     constructor(props) {
@@ -31,11 +29,17 @@ export default class PartnerDetails extends React.Component {
 }
 
 function listAddresses(partner, thisComponent) {
+    if (!partner || !partner.addresses) {
+        return (
+            <tr><td colSpan="2"><FormattedMessage id='NO_ADDRESSES_TO_SHOW'/></td></tr>
+        )
+    }
     return partner.addresses.map((address, index) => {
         return (
             <tr key={index}>
                 <th scope="row"><FormattedMessage id="ADDRESS"/> {index + 1}</th>
-                <td><input id={index} value={address.town} readOnly onChange={thisComponent.handleChange}  type="text"/></td>
+                <td><input id={index} value={address.town} readOnly onChange={thisComponent.handleChange} type="text"/>
+                </td>
             </tr>
         )
     })

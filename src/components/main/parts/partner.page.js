@@ -1,51 +1,51 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import * as GlobalConfig from '../../../global.config.json';
-import PartnersStore from '../stores/partners/partners.store';
+import PartnerStore from '../stores/partners/partner.store';
 import {HashRouter as Router, Route, Link} from 'react-router-dom';
 import PartnerDetails from './partner.details';
 
 export default class Partner extends React.Component {
-    constructor(properties) {
-        super(properties);
-        this.getPartners = this.getPartners.bind(this);
+    constructor() {
+        super();
+        this.getPartner = this.getPartner.bind(this);
         this.state = {
-            partners: PartnersStore.getAll(),
+            partner: PartnerStore.getById(getId()),
         }
     }
 
     componentWillMount() {
-        PartnersStore.on('change', this.getPartners);
+        PartnerStore.on('change', this.getPartner);
     }
 
     componentWillUnmount() {
-        PartnersStore.removeListener('change', this.getPartners);
+        PartnerStore.removeListener('change', this.getPartner);
     }
 
-    getPartners() {
+    getPartner() {
+        let partner = PartnerStore.getById(getId());
         this.setState({
-            partners: PartnersStore.getAll()
+            partner: partner
         });
     }
 
     render() {
-        const partner = this.getPartner(this.props.match.params.partnerId);
+        const {partner} = this.state;
         return (
             <div className='main-wrapper container row'>
-                <div className='col-md-9' id='partner-info'>
-                    {header(partner)}
+                {header(partner)}
+                <div className='col-md-3' id='partner-info'>
+                    <h4><FormattedMessage id='PROFILE'/></h4>
                     {editButton(this)}
                     {<PartnerDetails partner={partner}/>}
                     {saveCancelNav()}
                 </div>
+                <div className='col-md-6' id='partner-info'>
+                    <h4><FormattedMessage id='LATEST_OPERATIONS'/></h4>
+
+                </div>
             </div>
         );
-    }
-
-    getPartner(id) {
-        return this.state.partners.find((partner) => {
-            return partner.id == id;
-        })
     }
 }
 
@@ -58,6 +58,10 @@ function header(partner) {
         );
     }
     return (<h3><FormattedMessage id='NO_USER_TO_SHOW'/></h3>)
+}
+
+function getId(){
+    return window.location.href.substring(window.location.href.lastIndexOf("/")+1);
 }
 
 function saveCancelNav() {

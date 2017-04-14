@@ -27,6 +27,7 @@ export default {
         "SAVE": "Сохранить",
         "CANCEL": "Отмена",
         "EDIT": "Редактировать",
+        "PROFILE" : "Профиль",
 
         "MAIN_NAV_BASE": "Сводная информация",
         "MAIN_NAV_OPERATIONS_CASH": "Кассовые операции",
@@ -34,6 +35,7 @@ export default {
         "MAIN_NAV_SHIPS_EXPECTED": "Ожидаемые поставки",
         "MAIN_NAV_SHIPS_LIABILITIES": "Запланированные отгрузки",
 
-        "NO_USER_TO_SHOW": "Нет пользователя для отображения"
+        "NO_USER_TO_SHOW": "Нет пользователя для отображения",
+        "NO_ADDRESSES_TO_SHOW": "Нет адресов для отображения"
     }
 }
