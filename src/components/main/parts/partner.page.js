@@ -2,35 +2,47 @@ import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import * as GlobalConfig from '../../../global.config.json';
 import PartnerStore from '../stores/partners/partner.store';
-import {HashRouter as Router, Route, Link} from 'react-router-dom';
+import OperationsOfPartnerStore from '../stores/operations/operations.of.partner.store'
+import {Link} from 'react-router-dom';
 import PartnerDetails from './partner.details';
+import OperationsTable from './operations.table'
 
 export default class Partner extends React.Component {
     constructor() {
         super();
         this.getPartner = this.getPartner.bind(this);
+        this.getOperationByPartnerId = this.getOperationByPartnerId.bind(this);
         this.state = {
             partner: PartnerStore.getById(getId()),
+            operations: OperationsOfPartnerStore.getByPartnerId(getId())
         }
     }
 
     componentWillMount() {
         PartnerStore.on('change', this.getPartner);
+        OperationsOfPartnerStore.on('change', this.getOperationByPartnerId);
     }
 
     componentWillUnmount() {
         PartnerStore.removeListener('change', this.getPartner);
+        OperationsOfPartnerStore.removeListener('change', this.getOperationByPartnerId);
     }
 
     getPartner() {
-        let partner = PartnerStore.getById(getId());
         this.setState({
-            partner: partner
+            partner: PartnerStore.getById(getId())
+        });
+    }
+
+    getOperationByPartnerId() {
+        this.setState({
+            operations: OperationsOfPartnerStore.getByPartnerId(getId())
         });
     }
 
     render() {
         const {partner} = this.state;
+        const {operations} = this.state;
         return (
             <div className='main-wrapper container row'>
                 {header(partner)}
@@ -42,7 +54,7 @@ export default class Partner extends React.Component {
                 </div>
                 <div className='col-md-6' id='partner-info'>
                     <h4><FormattedMessage id='LATEST_OPERATIONS'/></h4>
-
+                    <OperationsTable operations={operations}/>
                 </div>
             </div>
         );

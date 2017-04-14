@@ -6,22 +6,25 @@ class OperationsStore extends EventEmitter {
         super();
         this.isNew = true;
         this.operations = [];
+        this.partnerId = null;
     }
 
-    getAll() {
-        if (this.isNew) {
-            this.fetchAll();
+    getByPartnerId(partnerId) {
+        if (this.isNew || partnerId !== this.partnerId) {
+            this.partnerId = partnerId;
+            this.isNew = false;
+            this.fetchAll("operation/partner/" + partnerId);
         }
         return this.operations;
     }
 
-    fetchAll() {
+    fetchAll(path) {
         const self = this;
-        axios.get('operation')
+        axios.get(path)
             .then(function (response) {
                 if (response.status === 200) {
                     if (response.data.constructor === Array) {
-                        self.operations = response.data;
+                    self.operations = response.data;
                     }
                     self.isNew = false;
                     self.emit("change");

@@ -21,11 +21,14 @@ class PartnersStore extends EventEmitter{
         axios.get('partner')
                 .then(function (response) {
                     if(response.status === 200) {
-                        self.partners = response.data;
+                        if (response.data.constructor === Array) {
+                            self.partners = response.data;
+                        }
                         self.isNew = false;
                         self.emit("change");
                     } else if (response.status === 204) {
-                        self.partners = {};
+                        self.partners = [];
+                        self.emit("change");
                     }
                 })
                 .catch(function (error) {
@@ -34,7 +37,7 @@ class PartnersStore extends EventEmitter{
                     } else {
                         console.error("Partners fetching error: ", error.message);
                     }
-                    console.log(error.config);
+                    console.log(error.message);
                 });
     }
 

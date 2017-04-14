@@ -25,6 +25,7 @@ class PartnerStore extends EventEmitter{
                         self.emit("change");
                     } else if (response.status === 204) {
                         self.partner = {};
+                        self.emit("change");
                     }
                 })
                 .catch(function (error) {
@@ -33,7 +34,7 @@ class PartnerStore extends EventEmitter{
                     } else {
                         console.error("Partners fetching error: ", error.message);
                     }
-                    console.log(error.config);
+                    console.log(error.message);
                 });
     }
 }
