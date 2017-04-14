@@ -5,6 +5,7 @@ import * as PartnersEvents from '../events/partners.events';
 import PartnerEditPage from './partners.edit.page';
 import {HashRouter as Router, Route, Link} from 'react-router-dom';
 import * as GlobalConfig from '../../../global.config.json';
+import Partner from './partner.page';
 
 export default class PartnersTable extends React.Component {
     constructor(properties) {
@@ -44,7 +45,7 @@ export default class PartnersTable extends React.Component {
         const partnersList = partners.map((partner) =>
             <li key={partner.id}>
                 <Link to={main.base + main.partners + "/id/" + partner.id} >
-                    {partner.name}
+                    <span>{partner.name}</span>
                 </Link>
             </li>
         );
@@ -62,7 +63,7 @@ export default class PartnersTable extends React.Component {
                 <ul id="partners-list" className="col-md-3">
                     {partnersList}
                 </ul>
-                <Route path="/main/partners/id/:partnerId" component={Partner}/>
+                <Route path="/main/partners/id/:partnerId" component={PartnerForRout}/>
                 <Route path="/main/partners/new" render={() => (
                         <PartnerEditPage />)}/>
             </div>
@@ -95,15 +96,6 @@ export default class PartnersTable extends React.Component {
     }
 }
 
-const Partner = ({ match }) => (
-        <div className="col-md-9">
-            <h3>Works!</h3>
-            <h3>This id: {match.params.partnerId} </h3>
-            <Link to="/" >
-                <button className="button"><FormattedMessage id="SAVE"/></button>
-            </Link>
-            <Link to="/" >
-                <button className="button"><FormattedMessage id="CANCEL"/></button>
-            </Link>
-        </div>
+const PartnerForRout = ({ match }) => (
+        <Partner match={match} />
 );

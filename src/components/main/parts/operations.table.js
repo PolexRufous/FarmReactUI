@@ -29,7 +29,7 @@ export default class OperationsTable extends React.Component {
             operations = [];
         }
 
-        return operations.map(function(curOperation, index){
+        return operations.map((curOperation, index) => {
             return <OperationRow operation={curOperation} key={index} />
         });
     }

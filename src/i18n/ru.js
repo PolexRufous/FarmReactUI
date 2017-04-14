@@ -20,6 +20,7 @@ export default {
         "MORE": "Дополнительно",
         "NAME": "Имя",
         "DESCRIPTION": "Описаине",
+        "ADDRESS": "Адрес",
         "ACTIONS": "Действия",
         "REFRESH": "Обновить",
         "ADD": "Добавить",
@@ -30,6 +31,8 @@ export default {
         "MAIN_NAV_OPERATIONS_CASH": "Кассовые операции",
         "MAIN_NAV_PARTNERS": "Партнеры",
         "MAIN_NAV_SHIPS_EXPECTED": "Ожидаемые поставки",
-        "MAIN_NAV_SHIPS_LIABILITIES": "Запланированные отгрузки"
+        "MAIN_NAV_SHIPS_LIABILITIES": "Запланированные отгрузки",
+
+        "NO_USER_TO_SHOW": "Нет пользователя для отображения"
     }
 }
