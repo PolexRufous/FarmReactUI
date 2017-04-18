@@ -44,7 +44,7 @@ export default class PartnersTable extends React.Component {
         const { main } = GlobalConfig.routes;
         const partnersList = partners.map((partner) =>
             <li key={partner.id}>
-                <Link to={main.base + main.partners + '/id/' + partner.id} >
+                <Link to={main.base + main.partners + '/partner/' + partner.id} >
                     <span>{partner.name}</span>
                 </Link>
             </li>
@@ -63,7 +63,7 @@ export default class PartnersTable extends React.Component {
                 <ul id='partners-list' className='col-md-3'>
                     {partnersList}
                 </ul>
-                <Route path='/main/partners/id/:partnerId' component={PartnerForRout}/>
+                <Route path='/main/partners/partner/:partnerId' component={Partner}/>
                 <Route path='/main/partners/new' render={() => (
                         <PartnerEditPage />)}/>
             </div>
@@ -77,10 +77,6 @@ export default class PartnersTable extends React.Component {
             partners = [];
         }
         return partners;
-
-/*        return partners.map(function (curPartner, index) {
-            return <PartnerRow partner={curPartner} key={index} edit='this.editPartner'/>
-        });*/
     }
 
     editPartner() {
@@ -95,7 +91,3 @@ export default class PartnersTable extends React.Component {
         return newPartnerRow;
     }
 }
-
-const PartnerForRout = ({ match }) => (
-        <Partner match={match} />
-);

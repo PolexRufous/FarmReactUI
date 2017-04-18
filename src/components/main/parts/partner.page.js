@@ -8,13 +8,15 @@ import PartnerDetails from './partner.details';
 import OperationsTable from './operations.table'
 
 export default class Partner extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.getPartner = this.getPartner.bind(this);
         this.getOperationByPartnerId = this.getOperationByPartnerId.bind(this);
+        this.handleSave = this.handleSave.bind(this);
         this.state = {
-            partner: PartnerStore.getById(getId()),
-            operations: OperationsOfPartnerStore.getByPartnerId(getId())
+            id: this.props.match.params.partnerId,
+            partner: PartnerStore.getById(this.props.match.params.partnerId),
+            operations: OperationsOfPartnerStore.getByPartnerId(this.props.match.params.partnerId)
         }
     }
 
@@ -30,14 +32,19 @@ export default class Partner extends React.Component {
 
     getPartner() {
         this.setState({
-            partner: PartnerStore.getById(getId())
+            partner: PartnerStore.getById(this.state.id)
         });
     }
 
     getOperationByPartnerId() {
         this.setState({
-            operations: OperationsOfPartnerStore.getByPartnerId(getId())
+            operations: OperationsOfPartnerStore.getByPartnerId(this.state.id)
         });
+    }
+
+    handleSave() {
+        let partner = this.state.partner;
+        PartnerStore.updatePartner(partner);
     }
 
     render() {
@@ -50,7 +57,7 @@ export default class Partner extends React.Component {
                     <h4><FormattedMessage id='PROFILE'/></h4>
                     {editButton(this)}
                     {<PartnerDetails partner={partner}/>}
-                    {saveCancelNav()}
+                    {saveCancelNav(this, partner)}
                 </div>
                 <div className='col-md-6' id='partner-info'>
                     <h4><FormattedMessage id='LATEST_OPERATIONS'/></h4>
@@ -64,7 +71,7 @@ export default class Partner extends React.Component {
 function header(partner) {
     if (partner) {
         return (
-            <h3>{partner.name}
+            <h3>{partner.name} | {partner.description}
                 <small>(id:{partner.id})</small>
             </h3>
         );
@@ -72,17 +79,11 @@ function header(partner) {
     return (<h3><FormattedMessage id='NO_USER_TO_SHOW'/></h3>)
 }
 
-function getId(){
-    return window.location.href.substring(window.location.href.lastIndexOf("/")+1);
-}
-
-function saveCancelNav() {
+function saveCancelNav(component, partner) {
     const {main} = GlobalConfig.routes;
     return (
         <div>
-            <Link to={main.base + main.partners}>
-                <button type='button' className='btn btn-success'><span><FormattedMessage id='SAVE'/></span></button>
-            </Link>
+            <button type='button' onClick={component.handleSave} className='btn btn-success'><span><FormattedMessage id='SAVE'/></span></button>
             <Link to={main.base + main.partners}>
                 <button type='button' className='btn btn-default'><span><FormattedMessage id='CANCEL'/></span></button>
             </Link>

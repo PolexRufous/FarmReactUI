@@ -5,17 +5,26 @@ import {Link} from "react-router-dom";
 export default class PartnerDetails extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {partner: props.partner};
-
+        let {partner} = this.props;
+        this.state = {partner: partner};
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
-        //TODO: update partner
+        let address = event.target.value;
+        let partnerIndex = event.target.attributes.id.value;
+        let {partner} = this.state;
+
+        if (partner && partner.addresses && address) {
+            partner.addresses[partnerIndex] = { id: partnerIndex, town: address};
+            this.setState({
+                partner: partner
+            })
+        }
     }
 
     render() {
-        const {partner} = this.props;
+        const {partner} = this.state;
         return (
             <div>
                 <table className="table">

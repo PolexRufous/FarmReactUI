@@ -32,10 +32,31 @@ class PartnerStore extends EventEmitter{
                     if(error.response) {
 
                     } else {
-                        console.error("Partners fetching error: ", error.message);
+                        console.error("Partner fetching error: ", error.message);
                     }
                     console.log(error.message);
                 });
+    }
+
+    updatePartner(partner) {
+        const self = this;
+        if (partner) {
+            this.partner = partner;
+            axios.put('partner/', partner)
+                .then(function (response) {
+                    if(response.status === 200) {
+                        self.emit("change");
+                    }
+                })
+                .catch(function (error) {
+                if(error.response) {
+
+                } else {
+                    console.error("Partner update error: ", error.message);
+                }
+                console.log(error.message);
+            });
+        }
     }
 }
 
