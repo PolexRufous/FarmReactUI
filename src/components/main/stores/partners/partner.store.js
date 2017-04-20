@@ -34,7 +34,7 @@ class PartnerStore extends EventEmitter{
                     } else {
                         console.error("Partner fetching error: ", error.message);
                     }
-                    console.log(error.message);
+                    console.log(error.config);
                 });
     }
 

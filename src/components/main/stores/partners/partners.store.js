@@ -18,26 +18,24 @@ class PartnersStore extends EventEmitter{
 
     fetchAll(){
         const self = this;
+        self.isNew = false;
         axios.get('partner')
                 .then(function (response) {
                     if(response.status === 200) {
                         if (response.data.constructor === Array) {
                             self.partners = response.data;
                         }
-                        self.isNew = false;
-                        self.emit("change");
                     } else if (response.status === 204) {
                         self.partners = [];
-                        self.emit("change");
                     }
+                    self.emit("change");
+                    self.isNew = false;
                 })
                 .catch(function (error) {
-                    if(error.response) {
-
-                    } else {
+                    if(!error.response) {
                         console.error("Partners fetching error: ", error.message);
                     }
-                    console.log(error.message);
+                    console.log(error.config);
                 });
     }
 
@@ -62,15 +60,33 @@ class PartnersStore extends EventEmitter{
                 });
     }
 
+    getPrtnerById(id) {
+        const partner = this.partners
+                .filter((partner) => {
+                    return partner.id == id;
+                });
+        return partner[0];
 
+    }
+
+    updatePartner(partner) {
+        console.error('Update partner is not implemented yet!');
+    }
 
     handlePartnerEvent(partnerEvent){
+        const { partner } = partnerEvent;
         switch (partnerEvent.type) {
             case 'REFRESH_PARTNERS':
                 this.fetchAll();
                 break;
             case 'CREATE_PARTNER':
-                this.createPartner(partnerEvent.partner);
+                this.createPartner(partner);
+                break;
+            case 'SAVE_PARTNER':
+                this.savePartner(partner);
+                break;
+            case 'UPDATE_PARTNER':
+                this.updatePartner(partner);
                 break;
             default:
                 console.error('Unexpected partners action type!');

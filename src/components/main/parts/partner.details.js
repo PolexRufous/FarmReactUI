@@ -1,12 +1,9 @@
 import React from "react";
 import {FormattedMessage} from "react-intl";
-import {Link} from "react-router-dom";
 
 export default class PartnerDetails extends React.Component {
-    constructor(props) {
-        super(props);
-        let {partner} = this.props;
-        this.state = {partner: partner};
+    constructor(params) {
+        super(params);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -24,7 +21,7 @@ export default class PartnerDetails extends React.Component {
     }
 
     render() {
-        const {partner} = this.state;
+        const {partner} = this.props;
         return (
             <div>
                 <table className="table">
@@ -38,7 +35,7 @@ export default class PartnerDetails extends React.Component {
 }
 
 function listAddresses(partner, thisComponent) {
-    if (!partner || !partner.addresses) {
+    if (!partner || !partner.addresses || !partner.addresses[0]) {
         return (
             <tr><td colSpan="2"><FormattedMessage id='NO_ADDRESSES_TO_SHOW'/></td></tr>
         )

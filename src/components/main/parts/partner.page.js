@@ -1,38 +1,55 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
 import * as GlobalConfig from '../../../global.config.json';
-import PartnerStore from '../stores/partners/partner.store';
+import PartnersStore from '../stores/partners/partners.store';
 import OperationsOfPartnerStore from '../stores/operations/operations.of.partner.store'
 import {Link} from 'react-router-dom';
 import PartnerDetails from './partner.details';
 import OperationsTable from './operations.table'
+import partnersDispatcher from '../dispatchers/partners.dispatcher';
+
 
 export default class Partner extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            id: this.props.match.params.partnerId,
+            partner: PartnersStore.getPrtnerById(this.props.match.params.partnerId),
+            operations: OperationsOfPartnerStore.getByPartnerId(this.props.match.params.partnerId)
+        };
         this.getPartner = this.getPartner.bind(this);
         this.getOperationByPartnerId = this.getOperationByPartnerId.bind(this);
         this.handleSave = this.handleSave.bind(this);
-        this.state = {
+        this.initialize = this.initialize.bind(this);
+    }
+
+    initialize(){
+        this.setState({
             id: this.props.match.params.partnerId,
-            partner: PartnerStore.getById(this.props.match.params.partnerId),
+            partner: PartnersStore.getPrtnerById(this.props.match.params.partnerId),
             operations: OperationsOfPartnerStore.getByPartnerId(this.props.match.params.partnerId)
-        }
+        });
     }
 
     componentWillMount() {
-        PartnerStore.on('change', this.getPartner);
+        PartnersStore.on('change', this.getPartner);
         OperationsOfPartnerStore.on('change', this.getOperationByPartnerId);
     }
 
+    componentWillUpdate(){
+        if (this.state.id != this.props.match.params.partnerId){
+            this.initialize();
+        }
+    }
+
     componentWillUnmount() {
-        PartnerStore.removeListener('change', this.getPartner);
+        PartnersStore.removeListener('change', this.getPartner);
         OperationsOfPartnerStore.removeListener('change', this.getOperationByPartnerId);
     }
 
     getPartner() {
         this.setState({
-            partner: PartnerStore.getById(this.state.id)
+            partner: PartnersStore.getPrtnerById(this.state.id)
         });
     }
 
@@ -43,8 +60,12 @@ export default class Partner extends React.Component {
     }
 
     handleSave() {
-        let partner = this.state.partner;
-        PartnerStore.updatePartner(partner);
+        const partner = this.state.partner;
+        const partnerAction = {
+            type: 'UPDATE_PARTNER',
+            partner,
+        };
+        partnersDispatcher.dispatch(partnerAction);
     }
 
     render() {
@@ -56,8 +77,8 @@ export default class Partner extends React.Component {
                 <div className='col-md-3' id='partner-info'>
                     <h4><FormattedMessage id='PROFILE'/></h4>
                     {editButton(this)}
-                    {<PartnerDetails partner={partner}/>}
-                    {saveCancelNav(this, partner)}
+                    <PartnerDetails partner={this.state.partner}/>
+                    {saveCancelNav(this)}
                 </div>
                 <div className='col-md-6' id='partner-info'>
                     <h4><FormattedMessage id='LATEST_OPERATIONS'/></h4>
@@ -79,7 +100,7 @@ function header(partner) {
     return (<h3><FormattedMessage id='NO_USER_TO_SHOW'/></h3>)
 }
 
-function saveCancelNav(component, partner) {
+function saveCancelNav(component) {
     const {main} = GlobalConfig.routes;
     return (
         <div>
