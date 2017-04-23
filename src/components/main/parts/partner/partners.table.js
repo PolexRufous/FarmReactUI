@@ -1,10 +1,10 @@
 import React from 'react';
 import PartnerRow from './partner.row';
 import {FormattedMessage} from 'react-intl';
-import * as PartnersEvents from '../events/partners.events';
+import * as PartnersEvents from '../../events/partners.events';
 import PartnerEditPage from './partners.edit.page';
 import {HashRouter as Router, Route, Link} from 'react-router-dom';
-import * as GlobalConfig from '../../../global.config.json';
+import * as GlobalConfig from '../../../../global.config.json';
 import Partner from './partner.page';
 
 export default class PartnersTable extends React.Component {

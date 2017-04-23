@@ -1,12 +1,12 @@
 import React from 'react';
 import {FormattedMessage} from 'react-intl';
-import * as GlobalConfig from '../../../global.config.json';
-import PartnersStore from '../stores/partners/partners.store';
-import OperationsOfPartnerStore from '../stores/operations/operations.of.partner.store'
+import * as GlobalConfig from '../../../../global.config.json';
+import PartnersStore from '../../stores/partners/partners.store';
+import OperationsOfPartnerStore from '../../stores/operations/operations.of.partner.store'
 import {Link} from 'react-router-dom';
 import PartnerDetails from './partner.details';
-import OperationsTable from './operations.table'
-import partnersDispatcher from '../dispatchers/partners.dispatcher';
+import OperationsTable from '../operation/operations.table'
+import partnersDispatcher from '../../dispatchers/partners.dispatcher';
 
 
 export default class Partner extends React.Component {

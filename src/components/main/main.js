@@ -1,6 +1,6 @@
 import React from 'react';
-import OperationsPage from "./parts/operation.page";
-import PartnersPage from "./parts/partners.page";
+import OperationsPage from "./parts/operation/operation.page";
+import PartnersPage from "./parts/partner/partners.page";
 import PartnersStore from './stores/partners/partners.store';
 import OperationsStore from './stores/operations/operations.store'
 import {HashRouter as Router, Route, hashHistory} from 'react-router-dom';
