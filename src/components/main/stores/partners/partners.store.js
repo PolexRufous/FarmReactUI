@@ -70,7 +70,23 @@ class PartnersStore extends EventEmitter{
     }
 
     updatePartner(partner) {
-        console.error('Update partner is not implemented yet!');
+        const self = this;
+        axios.put('partner', partner)
+            .then(function (response) {
+                if(response.status === 200) {
+                    self.fetchAll();
+                } else {
+                    console.error('Unexpected response status');
+                }
+            })
+            .catch(function (error) {
+                if(error.response) {
+                    console.log(error.response);
+                } else {
+                    console.error("Partner updating error: ", error.message);
+                }
+                console.log(error.config);
+            });
     }
 
     handlePartnerEvent(partnerEvent){

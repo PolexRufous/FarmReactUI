@@ -10,7 +10,7 @@ export default class PartnerDetails extends React.Component {
     handleChange(event) {
         let address = event.target.value;
         let partnerIndex = event.target.attributes.id.value;
-        let {partner} = this.state;
+        let {partner} = this.props;
 
         if (partner && partner.addresses && address) {
             partner.addresses[partnerIndex] = { id: partnerIndex, town: address};
