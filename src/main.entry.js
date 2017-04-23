@@ -11,6 +11,7 @@ import ru from './i18n/ru';
 import * as BootstrapCssTheme from '../node_modules/bootstrap-css-only/css/bootstrap-theme.min.css';
 import * as BootstrapCss from '../node_modules/bootstrap-css-only/css/bootstrap.min.css';
 import * as BootstrapGrid from '../node_modules/bootstrap-grid-only/bootstrap.css';
+import * as Scss from './styles/style.scss'
 
 addLocaleData([ru]);
 const language = (navigator.languages && navigator.languages[0]) ||
