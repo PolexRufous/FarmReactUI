@@ -2,7 +2,7 @@ import partnersDispatcher from '../dispatchers/partners.dispatcher';
 
 export function createPartner(partner) {
     const partnerAction = {
-        type: 'CREATE_PARTNER',
+        type: 'CREATE',
         partner,
     };
     partnersDispatcher.dispatch(partnerAction);
@@ -10,7 +10,7 @@ export function createPartner(partner) {
 
 export function refreshPartners() {
     const partnerAction = {
-        type: 'REFRESH_PARTNERS',
+        type: 'REFRESH',
     };
     partnersDispatcher.dispatch(partnerAction);
 }

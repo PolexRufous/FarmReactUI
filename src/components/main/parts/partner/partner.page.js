@@ -62,7 +62,7 @@ export default class Partner extends React.Component {
     handleSave() {
         const partner = this.state.partner;
         const partnerAction = {
-            type: 'UPDATE_PARTNER',
+            type: 'UPDATE',
             partner,
         };
         partnersDispatcher.dispatch(partnerAction);

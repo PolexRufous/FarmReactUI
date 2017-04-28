@@ -89,19 +89,19 @@ class PartnersStore extends EventEmitter{
             });
     }
 
-    handlePartnerEvent(partnerEvent){
+    handleEvent(partnerEvent){
         const { partner } = partnerEvent;
         switch (partnerEvent.type) {
-            case 'REFRESH_PARTNERS':
+            case 'REFRESH':
                 this.fetchAll();
                 break;
-            case 'CREATE_PARTNER':
+            case 'CREATE':
                 this.createPartner(partner);
                 break;
-            case 'SAVE_PARTNER':
+            case 'SAVE':
                 this.savePartner(partner);
                 break;
-            case 'UPDATE_PARTNER':
+            case 'UPDATE':
                 this.updatePartner(partner);
                 break;
             default:
@@ -112,5 +112,5 @@ class PartnersStore extends EventEmitter{
 }
 
 const partnersStore = new PartnersStore();
-partnersDispatcher.register(partnersStore.handlePartnerEvent.bind(partnersStore));
+partnersDispatcher.register(partnersStore.handleEvent.bind(partnersStore));
 export default partnersStore;
