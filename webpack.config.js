@@ -38,6 +38,10 @@ module.exports = [{
                 use: [ 'style-loader', 'css-loader', 'less-loader' ]
             },
             {
+                test: /(\.sass$|\.scss$)/,
+                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+            },
+            {
                 test: /(\.jpeg$|\.png$|\.gif$|\.svg$)/,
                 use: [ 'url-loader?limit=10000', 'img-loader' ]
             },
