@@ -6,7 +6,9 @@ export default class OperationRow extends React.Component {
         const { operation } = this.props;
         return (
             <tr>
-                <td>{operation.date}</td>
+                <td>{operation.enterDate}</td>
+                <td>{operation.expectedCommitDate}</td>
+                <td>{operation.factCommitDate}</td>
                 <td>{operation.partner.name}</td>
                 <td>
                     <FormattedMessage id={operation.operationType} />
