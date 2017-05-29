@@ -16,9 +16,9 @@ export default class MainNavigation extends React.Component{
                         </div>
                         <ul className='nav navbar-nav'>
                             <li>
-                                <a href={"#" + main.base + main.operations_cash}>
+                                <a href={"#" + main.base + main.documents}>
                                     <span className="glyphicon glyphicon-eur" aria-hidden="true">&nbsp;</span>
-                                    <FormattedMessage id='MAIN_NAV_OPERATIONS_CASH'/>
+                                    <FormattedMessage id='MAIN_NAV_DOCUMENTS_EXT'/>
 
                                 </a>
                             </li>
@@ -40,7 +40,12 @@ export default class MainNavigation extends React.Component{
                             </li>
                             <li className="disabled">
                                 <a href="#">
-                                    <FormattedMessage id='LATEST_OPERATIONS'/>
+                                    <FormattedMessage id='MAIN_NAV_PAYMENTS_EXPECTED'/>
+                                </a>
+                            </li>
+                            <li className="disabled">
+                                <a href="#">
+                                    <FormattedMessage id='MAIN_NAV_PAYMENTS_LIABILITIES'/>
                                 </a>
                             </li>
                         </ul>

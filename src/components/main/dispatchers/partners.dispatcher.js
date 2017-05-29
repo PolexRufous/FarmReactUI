@@ -1,5 +1,5 @@
-    import { Dispatcher } from 'flux';
+import {Dispatcher} from "flux";
 
-    const partnersDispatcher = new Dispatcher();
+const partnersDispatcher = new Dispatcher();
 
-    export default partnersDispatcher;
+export default partnersDispatcher;

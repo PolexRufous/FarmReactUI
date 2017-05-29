@@ -1,6 +1,6 @@
 import {EventEmitter} from 'events';
 import axios from '../default.axios';
-import operationsDispatcher from '../../dispatchers/operatins.dispatcher';
+import operationsDispatcher from '../../dispatchers/operations.dispatcher';
 
 class OperationsStore extends EventEmitter {
     constructor() {
@@ -41,9 +41,9 @@ class OperationsStore extends EventEmitter {
             })
     }
 
-    createOepration(){ }
+    createOperation(operation){ }
 
-    updateOperation() { }
+    updateOperation(operation) { }
 
     handleEvent(operationEvent){
         const { operation } = operationEvent;
@@ -52,7 +52,7 @@ class OperationsStore extends EventEmitter {
                 this.fetchAll();
                 break;
             case 'CREATE':
-                this.createOepration(operation);
+                this.createOperation(operation);
                 break;
             case 'SAVE':
                 this.savePartner(partner);

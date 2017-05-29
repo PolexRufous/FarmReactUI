@@ -6,8 +6,8 @@ export default {
         "CONTACT_US_HEADER": "Наши контакты",
         "CONTACT_US_TEXT": "Какой-то текст про контакты",
         "NAVIGATION_HEADER": "Супер Ферма",
-        "NAVIGATION_MENU_MAIN": "Главная",
-        "NAVIGATION_MENU_NOT_MAIN": "Не главная",
+        "NAVIGATION_MENU_MAIN": "Внешнее",
+        "NAVIGATION_MENU_NOT_MAIN": "Внутреннее",
         "LEFT_SIDE_HEADER": "Заголовок слева",
         "LEFT_SIDE_TEXT": "Текст слева",
         "LATEST_OPERATIONS": "Последние операции",
@@ -32,12 +32,21 @@ export default {
         "PROFILE" : "Профиль",
 
         "MAIN_NAV_BASE": "Сводная информация",
-        "MAIN_NAV_OPERATIONS_CASH": "Кассовые операции",
+        "MAIN_NAV_DOCUMENTS_EXT": "Внешние документы",
         "MAIN_NAV_PARTNERS": "Партнеры",
         "MAIN_NAV_SHIPS_EXPECTED": "Ожидаемые поставки",
         "MAIN_NAV_SHIPS_LIABILITIES": "Запланированные отгрузки",
+        "MAIN_NAV_PAYMENTS_LIABILITIES": "Запланированные платежи",
+        "MAIN_NAV_PAYMENTS_EXPECTED": "Ожидаемые оплаты",
+
 
         "NO_USER_TO_SHOW": "Нет пользователя для отображения",
-        "NO_ADDRESSES_TO_SHOW": "Нет адресов для отображения"
+        "NO_ADDRESSES_TO_SHOW": "Нет адресов для отображения",
+
+        "RECENT_DOCUMENTS": "Посдедние введенные документы",
+        "DOCUMENT_TYPE": "Тип документа",
+        "SUBJECT": "Предмет",
+        "BUY_RAW_MATERIALS": "Покупка сырья",
+        "PAY_SALARY": "Выплата зарплаты"
     }
 }

@@ -9,7 +9,8 @@
         "main": {
             "base": "/main",
             "operations_cash": "/operations_cash",
-            "partners": "/partners"
+            "partners": "/partners",
+            "documents": "/documents"
         }
     }
 }
